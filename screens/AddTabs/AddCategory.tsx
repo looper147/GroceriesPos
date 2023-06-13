@@ -8,6 +8,11 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
+import db from "../../database/groceriesPos";
+//redux
+import { useDispatch } from "react-redux";
+import { addCategory } from "../../redux/actions";
+
 import { useState } from "react";
 
 interface AddCatScreenProps {
@@ -41,7 +46,18 @@ const CustomHeader = ({ navigation }: AddCatScreenProps) => {
 
 const AddCategory = ({ navigation }: AddCatScreenProps) => {
   const [category, setCat] = useState("");
+  const dispatch = useDispatch();
 
+  const handleCategorySubmit = () => {
+    dispatch(addCategory(category));
+
+    // db.run("INSERT INTO categories (name) values(?)", [category], (err) => {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    // });
+    setCat("");
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <CustomHeader navigation={navigation} />
@@ -66,7 +82,10 @@ const AddCategory = ({ navigation }: AddCatScreenProps) => {
         ]}
       >
         <View style={{ flex: 1 }}>
-          <TouchableOpacity style={styles.confirmButton}>
+          <TouchableOpacity
+            style={styles.confirmButton}
+            onPress={() => handleCategorySubmit}
+          >
             <Text style={{ color: "#ffffff" }}>Confirm category</Text>
           </TouchableOpacity>
         </View>
