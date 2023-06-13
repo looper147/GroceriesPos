@@ -4,6 +4,16 @@ import IconF from "react-native-vector-icons/Feather";
 import IconFont from "react-native-vector-icons/FontAwesome5";
 import IconE from "react-native-vector-icons/Entypo";
 
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import {
+  setDailyNetProfit,
+  setDailyTotalRevenue,
+  setDailyTotalSold,
+  setDailyBest,
+} from "../../redux/dailyOverviewSlice";
+
 interface DailyScreenProps {
   navigation: any;
 }
@@ -33,7 +43,7 @@ const CustomHeader = ({ navigation }: DailyScreenProps) => {
     </View>
   );
 };
-const Card = ({ target, text, icon }: any) => {
+const Card = ({ value, text, icon }: any) => {
   return (
     <View
       style={{
@@ -46,7 +56,7 @@ const Card = ({ target, text, icon }: any) => {
       }}
     >
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 40, fontWeight: "200" }}>{target}</Text>
+        <Text style={{ fontSize: 40, fontWeight: "200" }}>{value}</Text>
         <Text style={{ fontSize: 20, fontWeight: "500" }}>{text}</Text>
       </View>
 
@@ -58,26 +68,42 @@ const Card = ({ target, text, icon }: any) => {
 };
 
 const DailyOverview = ({ navigation }: DailyScreenProps) => {
+  const dailyNetProfit = useSelector(
+    (state: RootState) => state.dailyOverview.dailyNetProfit
+  );
+
+  const dailyTotalRevenue = useSelector(
+    (state: RootState) => state.dailyOverview.dailyTotalRevenue
+  );
+
+  const dailyTotalSold = useSelector(
+    (state: RootState) => state.dailyOverview.dailyTotalSold
+  );
+
+  const dailyBest = useSelector(
+    (state: RootState) => state.dailyOverview.dailyBest
+  );
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <CustomHeader navigation={navigation} />
       <Card
-        target="+$500"
+        value={"$" + dailyNetProfit}
         text="Net Profit"
         icon={<IconF name="trending-up" size={65} color="#087dff" />}
       />
       <Card
-        target="+$1200"
+        value={"$" + dailyTotalRevenue}
         text="Total Revenue"
         icon={<Icon name="wallet" size={65} color={"#087dff"} />}
       />
       <Card
-        target="50 items"
+        value={dailyTotalSold}
         text="Total Sold"
         icon={<IconFont name="shopping-basket" size={65} color={"#087dff"} />}
       />
       <Card
-        target="Fruits"
+        value={dailyBest}
         text="Best selling category"
         icon={<IconE name="price-tag" size={65} color={"#087dff"} />}
       />

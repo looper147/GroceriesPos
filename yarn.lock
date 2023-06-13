@@ -7987,10 +7987,10 @@
     "@react-navigation/core" "^3.7.9"
     "@react-navigation/native" "^3.8.4"
 
-"react-redux@^7.2.1 || ^8.0.2", "react-redux@^8.0.7":
-  "integrity" "sha512-1vRQuCQI5Y2uNmrMXg81RXKiBHY3jBzvCvNmZF437O/Z9/pZ+ba2uYHbemYXb3g8rjsacBGo+/wmfrQKzMhJsg=="
-  "resolved" "https://registry.npmjs.org/react-redux/-/react-redux-8.0.7.tgz"
-  "version" "8.0.7"
+"react-redux@^7.2.1 || ^8.0.2", "react-redux@^8.1.0":
+  "integrity" "sha512-CtHZzAOxi7GQvTph4dVLWwZHAWUjV2kMEQtk50OrN8z3gKxpWg3Tz7JfDw32N3Rpd7fh02z73cF6yZkK467gbQ=="
+  "resolved" "https://registry.npmjs.org/react-redux/-/react-redux-8.1.0.tgz"
+  "version" "8.1.0"
   dependencies:
     "@babel/runtime" "^7.12.1"
     "@types/hoist-non-react-statics" "^3.3.1"

@@ -1,8 +1,20 @@
 import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
+
+//icons
 import Icon from "react-native-vector-icons/Ionicons";
 import IconF from "react-native-vector-icons/Feather";
 import IconFont from "react-native-vector-icons/FontAwesome5";
 import IconE from "react-native-vector-icons/Entypo";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import {
+  setMonthlyNetProfit,
+  setMonthlyTotalRevenue,
+  setMonthlyTotalSold,
+  setMonthlyBest,
+} from "../../redux/monthlyOverviewSlice";
 
 interface MonthlyOverviewProps {
   navigation: any;
@@ -33,7 +45,7 @@ const CustomHeader = ({ navigation }: MonthlyOverviewProps) => {
     </View>
   );
 };
-const Card = ({ target, text, icon }: any) => {
+const Card = ({ value, text, icon }: any) => {
   return (
     <View
       style={{
@@ -46,7 +58,7 @@ const Card = ({ target, text, icon }: any) => {
       }}
     >
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 40, fontWeight: "200" }}>{target}</Text>
+        <Text style={{ fontSize: 40, fontWeight: "200" }}>{value}</Text>
         <Text style={{ fontSize: 20, fontWeight: "500" }}>{text}</Text>
       </View>
 
@@ -58,26 +70,41 @@ const Card = ({ target, text, icon }: any) => {
 };
 
 const MonthlyOverview = ({ navigation }: MonthlyOverviewProps) => {
+  const monthlyNetProfit = useSelector(
+    (state: RootState) => state.monthlyOverview.monthlyNetProfit
+  );
+
+  const monthlyTotalRevenue = useSelector(
+    (state: RootState) => state.monthlyOverview.monthlyTotalRevenue
+  );
+
+  const monthlyTotalSold = useSelector(
+    (state: RootState) => state.monthlyOverview.monthlyTotalSold
+  );
+
+  const monthlyBest = useSelector(
+    (state: RootState) => state.monthlyOverview.monthlyBest
+  );
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <CustomHeader navigation={navigation} />
       <Card
-        target="+$4553"
+        value={"$" + monthlyNetProfit}
         text="Net Profit"
         icon={<IconF name="trending-up" size={65} color="#087dff" />}
       />
       <Card
-        target="+$1300"
+        value={"$" + monthlyTotalRevenue}
         text="Total Revenue"
         icon={<Icon name="wallet" size={65} color={"#087dff"} />}
       />
       <Card
-        target="563 items"
+        value={monthlyTotalSold}
         text="Total Sold"
         icon={<IconFont name="shopping-basket" size={65} color={"#087dff"} />}
       />
       <Card
-        target="Vegetables"
+        value={monthlyBest}
         text="Best selling category"
         icon={<IconE name="price-tag" size={65} color={"#087dff"} />}
       />

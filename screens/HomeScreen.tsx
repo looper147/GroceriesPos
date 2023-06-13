@@ -5,13 +5,26 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+
+//chart and navigation
 import Chart from "../components/chart";
-import { useNavigation } from "@react-navigation/native";
-// import DailyOverview from './DailyOverview';
+import { StackNavigationState, useNavigation } from "@react-navigation/native";
+
+//icons
 import Icon from "react-native-vector-icons/Ionicons";
 import IconF from "react-native-vector-icons/Feather";
 import IconM from "react-native-vector-icons/MaterialIcons";
-import { ScrollView } from "react-native-gesture-handler";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import {
+  setDailyIncome,
+  setDailyTop,
+  setMonthlyIncome,
+  setMonthlyTop,
+} from "../redux/previewSalesSlice";
 
 interface HomeScreenProps {
   navigation: any;
@@ -79,8 +92,37 @@ const Card = ({ title, label, label2, value, value2 }: any) => {
 };
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const handlePress = (screenName: string): void => {
-    navigation.navigate(screenName);
+  const dailyIncome = useSelector(
+    (state: RootState) => state.salesPreview.dailyIncome
+  );
+  const dailyTop = useSelector(
+    (state: RootState) => state.salesPreview.dailyTop
+  );
+  const monthlyIncome = useSelector(
+    (state: RootState) => state.salesPreview.monthlyIncome
+  );
+  const monthlyTop = useSelector(
+    (state: RootState) => state.salesPreview.monthlyTop
+  );
+  const dispatch = useDispatch();
+  // Update the sales states using Redux dispatchers
+  const updateDailyIncome = (newIncome: number) => {
+    dispatch(setDailyIncome(newIncome));
+  };
+
+  const updateDailyTop = (newTop: string) => {
+    dispatch(setDailyTop(newTop));
+  };
+
+  const updateMonthlyIncome = (newIncome: number) => {
+    dispatch(setMonthlyIncome(newIncome));
+  };
+
+  const updateMonthlyTop = (newTop: string) => {
+    dispatch(setMonthlyTop(newTop));
+  };
+  const handlePress = (screenName: any): void => {
+    navigation.navigate(screenName as never);
   };
   return (
     <>
@@ -92,9 +134,9 @@ const HomeScreen = () => {
               <Card
                 title="Daily sales"
                 label="Total income"
-                value="+$1242"
+                value={"$" + dailyIncome}
                 label2="Top selling"
-                value2="Apples"
+                value2={dailyTop}
               />
             </TouchableOpacity>
 
@@ -102,9 +144,9 @@ const HomeScreen = () => {
               <Card
                 title="Monthly sales"
                 label="Total income"
-                value="+$37000"
+                value={"$" + monthlyIncome}
                 label2="Top selling"
-                value2="Orange"
+                value2={monthlyTop}
               />
             </TouchableOpacity>
 

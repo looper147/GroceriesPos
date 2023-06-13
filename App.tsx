@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 
-import { StyleSheet } from "react-native";
-
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { store } from "./redux/store";
 {
   /*Navigation*/
 }
@@ -97,57 +97,59 @@ const RootTab = () => {
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="ViewItems">
-        {/*add screen */}
-        <Stack.Screen
-          name="AddDaily"
-          component={RootTab}
-          options={{
-            headerShown: false,
-            animation: "none",
-            animationDuration: 899,
-          }}
-        />
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="ViewItems">
+          {/*add screen */}
+          <Stack.Screen
+            name="AddDaily"
+            component={RootTab}
+            options={{
+              headerShown: false,
+              animation: "none",
+              animationDuration: 899,
+            }}
+          />
 
-        {/*view screen*/}
-        <Stack.Screen
-          name="ViewItems"
-          component={ViewItems}
-          options={{
-            headerShown: false,
-          }}
-        />
+          {/*view screen*/}
+          <Stack.Screen
+            name="ViewItems"
+            component={ViewItems}
+            options={{
+              headerShown: false,
+            }}
+          />
 
-        {/*home screen */}
-        <Stack.Screen
-          name="Root"
-          component={Root}
-          options={{ headerShown: false }}
-        />
+          {/*home screen */}
+          <Stack.Screen
+            name="Root"
+            component={Root}
+            options={{ headerShown: false }}
+          />
 
-        {/*daily overview screen */}
-        <Stack.Screen
-          name="DailyOverview"
-          component={DailyOverview}
-          options={{ headerShown: false }}
-        />
+          {/*daily overview screen */}
+          <Stack.Screen
+            name="DailyOverview"
+            component={DailyOverview}
+            options={{ headerShown: false }}
+          />
 
-        {/*monthly overview screen */}
-        <Stack.Screen
-          name="MonthlyOverview"
-          component={MonthlyOverview}
-          options={{ headerShown: false }}
-        />
+          {/*monthly overview screen */}
+          <Stack.Screen
+            name="MonthlyOverview"
+            component={MonthlyOverview}
+            options={{ headerShown: false }}
+          />
 
-        {/*general overview screen */}
-        <Stack.Screen
-          name="GeneralOverview"
-          component={GenOverview}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+          {/*general overview screen */}
+          <Stack.Screen
+            name="GeneralOverview"
+            component={GenOverview}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
