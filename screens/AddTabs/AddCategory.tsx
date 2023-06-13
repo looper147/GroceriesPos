@@ -51,9 +51,11 @@ const AddCategory = ({ navigation }: AddCatScreenProps) => {
   const handleCategorySubmit = () => {
     dispatch(addCategory(category));
 
-    // db.run("INSERT INTO categories (name) values(?)", [category], (err) => {
+    // db.run("INSERT INTO category (name) values(?)", [category], (err) => {
     //   if (err) {
     //     console.log(err);
+    //   } else {
+    //     console.log("inserted");
     //   }
     // });
     setCat("");

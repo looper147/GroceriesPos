@@ -1,18 +1,17 @@
-import SQLite from 'sqlite3';
-const db = new SQLite.Database('./database/groceriesPos.db',err=>{
-    if(err){
-        console.error('Error opening the database',err.message);
-
-    }else{
-        console.log('Connected to the database');
-        db.run(`
+import SQLite from "sqlite3";
+const db = new SQLite.Database("../database/groceriesPos.ts", (err) => {
+  if (err) {
+    console.error("Error opening the database", err.message);
+  } else {
+    console.log("Connected to the database");
+    db.run(`
                 CREATE TABLE IF NOT EXISTS category(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL
                 )
         
         `);
-        db.run(`
+    db.run(`
                 CREATE TABLE IF NOT EXISTS item(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
@@ -27,7 +26,7 @@ const db = new SQLite.Database('./database/groceriesPos.db',err=>{
         
         
         `);
-        db.run(`
+    db.run(`
                     CREATE TABLE IF NOT EXISTS daily_item(
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         date DATE NOT NULL,
@@ -40,7 +39,7 @@ const db = new SQLite.Database('./database/groceriesPos.db',err=>{
                         FOREIGN KEY(item_id) REFERENCES item(id)
                     )
         `);
-        db.run(`
+    db.run(`
                     CREATE TABLE IF NOT EXISTS daily_sales(
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         date DATE NOT NULL,
@@ -50,7 +49,7 @@ const db = new SQLite.Database('./database/groceriesPos.db',err=>{
                         FOREIGN KEY(item_id) REFERENCES item(id)
                     )
         `);
-        db.run(`
+    db.run(`
                     CREATE TABLE IF NOT EXISTS package(
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         name TEXT NOT NULL,
@@ -60,7 +59,7 @@ const db = new SQLite.Database('./database/groceriesPos.db',err=>{
                         price_curr TEXT NOT NULL DEFAULT 'LBP'
                     )
         `);
-        db.run(`
+    db.run(`
                     CREATE TABLE IF NOT EXISTS package_links(
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         item_id INTEGER NOT NULL,
@@ -71,7 +70,7 @@ const db = new SQLite.Database('./database/groceriesPos.db',err=>{
                         FOREIGN KEY(pack_id) REFERENCES package(id)
                     )
         `);
-    console.log('Database schema created successfully');
-    }
+    console.log("Database schema created successfully");
+  }
 });
 export default db;
