@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 //db
-import { categoryReducer } from "./actions";
+import { categoryReducer } from "./categorySlice";
 
 import salesPreviewReducer from "./previewSalesSlice";
 import salesDailyOverviewReducer from "./dailyOverviewSlice";

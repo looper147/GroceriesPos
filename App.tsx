@@ -99,7 +99,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="ViewItems">
+        <Stack.Navigator initialRouteName="AddDaily">
           {/*add screen */}
           <Stack.Screen
             name="AddDaily"
